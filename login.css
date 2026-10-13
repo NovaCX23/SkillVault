@@ -35,32 +35,25 @@
     }
 }
 html, body {
-    height: 100%;  
-    margin: 0;  
-    padding: 0;  
-    display: flex;
-    justify-content: center;  
-    align-items: center;  
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
-
 
 body {
     font-family: 'InterVariable', sans-serif;
     line-height: 1.7;
-    color: var(--color-white);
+    color: var(--color-bg);
     background: var(--color-bg);
-    scroll-behavior: smooth;
-    margin: 0;
-    padding: 0;
-    height: 100%;
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
 }
 
-
-#login-container {
-    background-color: white;
+#login-container,
+#register-container,
+#welcome-container {
+    background-color: var(--color-white);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -96,7 +89,9 @@ button:hover {
 }
 
 @media (max-width: 400px) {
-    #login-container {
+    #login-container,
+    #register-container,
+    #welcome-container {
         width: 90%; 
     }
 }

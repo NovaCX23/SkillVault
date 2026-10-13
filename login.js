@@ -31,8 +31,8 @@ function handleLogin(event) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('username', username);
 
-        // Redirect to index.html after successful login
-        window.location.href = "home.html";
+        // Redirect to the home page after a successful login
+        window.location.href = "index.html";
     } else {
         alert('Invalid username or password');
     }

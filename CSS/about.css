@@ -117,7 +117,7 @@
 }
 
 .team__member-info p {
-    color: var(--color-light);
+    color: var(--color-light-text);
 }
 
 .team__member-socials {

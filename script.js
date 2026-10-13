@@ -1,212 +1,128 @@
-function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      includedLanguages: 'en,ro'
-    }, 'google_translate_element');
-}
+// ======================= NAVBAR =======================
 
 // Change navbar style on scroll
 window.addEventListener('scroll', () => {
     document.querySelector('nav').classList.toggle('window-scroll', window.scrollY > 0);
 });
 
-// navbar random color   // Can be eliminated to go back to originial color
-function changeNavbarColorToDarkBlue() {
-    const navbar = document.querySelector('nav');
-
-    // Generăm o culoare în nuanțe de albastru închis
-    const red = Math.floor(Math.random() * 100); // Valori mici pentru roșu
-    const green = Math.floor(Math.random() * 100); // Valori mici pentru verde
-    const blue = 150 + Math.floor(Math.random() * 105); // Dominant (150-255)
-    const randomColor = `rgb(${red}, ${green}, ${blue})`;
-
-    navbar.style.backgroundColor = randomColor;
-}
-
-// Schimbă culoarea navbar-ului la fiecare 10 secunde
-setInterval(changeNavbarColorToDarkBlue, 10000);
-
-// Up until here navbar random color change
-
-
-
-// show/hide nav menu
-const menu = document.querySelector(".nav__menu");
-const menuBtn = document.querySelector("#open-menu-btn");
-const closeBtn = document.querySelector("#close-menu-btn");
-
+// Show/hide the nav menu on smaller screens
+const menu = document.querySelector('.nav__menu');
+const menuBtn = document.querySelector('#open-menu-btn');
+const closeBtn = document.querySelector('#close-menu-btn');
 
 menuBtn.addEventListener('click', () => {
-    menu.style.display = "flex";
-    closeBtn.style.display = "inline-block";
-    menuBtn.style.display = "none";
-})
+    menu.style.display = 'flex';
+    closeBtn.style.display = 'inline-block';
+    menuBtn.style.display = 'none';
+});
 
 const closeNav = () => {
-    menu.style.display = "none";
-    closeBtn.style.display = "none";
-    menuBtn.style.display = "inline-block";
-}
+    menu.style.display = 'none';
+    closeBtn.style.display = 'none';
+    menuBtn.style.display = 'inline-block';
+};
 
 closeBtn.addEventListener('click', closeNav);
 
-/// Selectează navbar-ul
-const navbar = document.querySelector('nav');
-// Obține stilurile calculate ale navbar-ului după ce este modificat
-const computedStyles = window.getComputedStyle(navbar);
 
-// Ascunde navbar-ul inițial
-navbar.style.display = 'none';
-// Verifică dacă navbar-ul este vizibil
-if (computedStyles.display === 'none' || computedStyles.visibility === 'hidden' || computedStyles.opacity === '0') {
-    console.log("Navbar-ul este ascuns");
-} else {
-    console.log("Navbar-ul este vizibil");
-}
+// ======================= TESTIMONIALS =======================
 
-// Modifică stilul navbar-ului după 1 secundă
-setTimeout(() => {
-    navbar.style.display = 'flex'; // Afișează navbar-ul cu tranziție
-    // Verifică dacă navbar-ul este vizibil
-    if (computedStyles.display === 'none' || computedStyles.visibility === 'hidden' || computedStyles.opacity === '0') {
-        console.log("Navbar-ul este ascuns");
-    } else {
-        console.log("Navbar-ul este vizibil");
-    }
-}, 1500);  // Delay de 1 secundă
+const addTestimonialBtn = document.querySelector('#add-testimonial-btn');
 
-
-    // TESTIMONIALS
-
-// Codul pentru gestionarea testimonialelor
-
-document.addEventListener("DOMContentLoaded", () => {
-    // Elemente din formular
-    const addTestimonialBtn = document.querySelector('#add-testimonial-btn');
+// The testimonial form only exists on the home page
+if (addTestimonialBtn) {
     const nameInput = document.querySelector('#testimonial-name');
     const roleInput = document.querySelector('#testimonial-role');
     const messageInput = document.querySelector('#testimonial-message');
-
-    // Container pentru testimonialele existente
     const testimonialsContainer = document.querySelector('.testimonials__Container > div');
+    const testimonialForm = document.querySelector('.testimonial__form');
 
-    // Lista de imagini pentru avatar (poți adăuga mai multe imagini aici)
+    // Avatars picked at random for newly added testimonials
     const avatarImages = [
-        './images/avatar6.jpg', 
-        './images/avatar7.jpg', 
-        './images/avatar8.jpg', 
+        './images/avatar6.jpg',
+        './images/avatar7.jpg',
+        './images/avatar8.jpg',
         './images/avatar9.jpg',
         './images/avatar10.jpg',
-        './images/avatar11.jpg', 
+        './images/avatar11.jpg',
         './images/avatar12.jpg'
     ];
 
-    // Funcție pentru a alege aleatoriu o imagine
-    function getRandomAvatar() {
-        const randomIndex = Math.floor(Math.random() * avatarImages.length);
-        return avatarImages[randomIndex];
-    }
+    const getRandomAvatar = () => avatarImages[Math.floor(Math.random() * avatarImages.length)];
 
-    // Funcția pentru adăugarea unui testimonial
     function addTestimonial(name, role, message, avatar) {
-        const newTestimonial = document.createElement('article');
-        newTestimonial.classList.add('testimonial');
-        newTestimonial.innerHTML = `
+        const testimonial = document.createElement('article');
+        testimonial.classList.add('testimonial');
+        testimonial.innerHTML = `
             <div class="avatar">
-                <img src="${avatar}" alt="Avatar">
+                <img alt="Avatar">
             </div>
             <div class="testimonial__info">
-                <h5>${name}</h5>
-                <small>${role}</small>
+                <h5></h5>
+                <small></small>
             </div>
             <div class="testimonial__body">
-                <p>"${message}"</p>
+                <p></p>
             </div>
             <button class="delete-testimonial-btn">Delete</button>
         `;
 
-        // Adăugarea testimonialului în container
-        testimonialsContainer.appendChild(newTestimonial);
+        // Fill user input with textContent so it can't inject HTML
+        testimonial.querySelector('img').src = avatar;
+        testimonial.querySelector('h5').textContent = name;
+        testimonial.querySelector('small').textContent = role;
+        testimonial.querySelector('p').textContent = `"${message}"`;
 
-        // Golește câmpurile formularului
+        testimonial.querySelector('.delete-testimonial-btn').addEventListener('click', () => {
+            testimonial.remove();
+        });
+
+        // Keep the form as the last item in the list
+        testimonialsContainer.insertBefore(testimonial, testimonialForm);
+
         nameInput.value = '';
         roleInput.value = '';
         messageInput.value = '';
-
-        // Adăugarea funcționalității de ștergere
-        const deleteBtn = newTestimonial.querySelector('.delete-testimonial-btn');
-        deleteBtn.addEventListener('click', () => {
-            newTestimonial.remove();
-        });
     }
 
-    // Event listener pentru butonul de adăugare
     addTestimonialBtn.addEventListener('click', () => {
-        
-        // e.stopPropagation();  // Oprește propagarea evenimentului pentru click
-
-        // Obține valorile introduse
         const name = nameInput.value.trim();
         const role = roleInput.value.trim();
         const message = messageInput.value.trim();
 
-        // Expresii regulate pentru validare
-        const nameRegex = /^[a-zA-Z\s]{3,50}$/; // Nume între 3 și 50 de caractere
-        const roleRegex = /^[a-zA-Z\s]{2,30}$/; // Rol între 2 și 30 de caractere
-        const messageRegex = /^.{10,300}$/; // Mesaj între 10 și 300 de caractere
+        const nameRegex = /^[a-zA-Z\s]{3,50}$/;
+        const roleRegex = /^[a-zA-Z\s]{2,30}$/;
+        const messageRegex = /^.{10,300}$/;
 
-        // Verificare validare
         if (!nameRegex.test(name)) {
-            alert("The name must contain only letters and spaces, between 3 and 50 characters.");
+            alert('The name must contain only letters and spaces, between 3 and 50 characters.');
             return;
         }
 
         if (!roleRegex.test(role)) {
-            alert("The role must contain only letters and spaces, between 2 and 30 characters.");
+            alert('The role must contain only letters and spaces, between 2 and 30 characters.');
             return;
         }
 
         if (!messageRegex.test(message)) {
-            alert("The message must be between 10 and 300 characters.");
+            alert('The message must be between 10 and 300 characters.');
             return;
         }
 
-        // Dacă testimonialul este nou, alege o imagine aleatorie
-        const avatar = getRandomAvatar();
-
-        // Adăugare testimonial
-        addTestimonial(name, role, message, avatar);
+        addTestimonial(name, role, message, getRandomAvatar());
     });
-
-    // Adăugarea testimonialelor deja existente
-    // const existingTestimonials = document.querySelectorAll('.testimonial');
-    // existingTestimonials.forEach(testimonial => {
-    //     const avatarImg = testimonial.querySelector('.avatar img');
-    //     const avatarSrc = avatarImg ? avatarImg.src : '';
-    //     // Asigură-te că testimonialele existente nu sunt modificate
-    //     testimonial.querySelector('.delete-testimonial-btn').addEventListener('click', () => {
-    //         testimonial.remove();
-    //     });
-    // });
-});
+}
 
 
+// ======================= FAQs =======================
 
-// Show/hide FAQ and toggle icon
-const faqs = document.querySelectorAll('.faq');
-
-faqs.forEach(faq => {
+// Show/hide FAQ answers and toggle the plus/minus icon
+document.querySelectorAll('.faq').forEach(faq => {
     faq.addEventListener('click', () => {
         faq.classList.toggle('open');
 
-        // Change icon inside the event listener for each FAQ click
         const icon = faq.querySelector('.faq__icon i');
-        if (icon.classList.contains('uil-plus')) {
-            icon.classList.remove('uil-plus');
-            icon.classList.add('uil-minus');
-        } else {
-            icon.classList.remove('uil-minus');
-            icon.classList.add('uil-plus');
-        }
+        icon.classList.toggle('uil-plus');
+        icon.classList.toggle('uil-minus');
     });
 });

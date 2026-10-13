@@ -121,19 +121,17 @@ img {
 
 /* ======================= NAVBAR ==================== */
 
-/* Ascunde navbar-ul la început */
 nav {
     background: transparent;
-    width: 100vw;
+    width: 100%;
     height: 5rem;
     position: fixed;
     top: 0;
     z-index: 11;
-    display: none; /* Ascunde navbar-ul la început */
-    transition: all 0.5s ease; /* Animație de tranziție pentru afișare */
+    transition: var(--transition);
 }
 
-/* Alte stiluri pentru navbar */
+/* Applied by script.js once the page is scrolled */
 .window-scroll {
     background: var(--color-primary);
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
@@ -275,7 +273,7 @@ header {
 
 .category p {
     font-size: 0.9rem;
-    color: var(--color-light);
+    color: var(--color-light-text);
 }
 
 
@@ -335,7 +333,7 @@ header {
 .course__info p {
     margin: 1.2rem 0 2rem;
     font-size: 0.9rem;
-    color: var(--color-light);
+    color: var(--color-light-text);
 }
 
 /* =================== END OF COURSES =================== */
@@ -436,7 +434,7 @@ header {
     transform: rotate(45deg);
 }
 
-/* ================= FORMULAR ADĂUGARE TESTIMONIAL ================= */
+/* ================= ADD TESTIMONIAL FORM ================= */
 
 .testimonial__form {
     padding-top:7rem;
@@ -482,7 +480,7 @@ header {
     background-color: var(--color-bg1);
 }
 
-/* ================= BUTON DE ȘTERGERE TESTIMONIAL ================= */
+/* ================= DELETE TESTIMONIAL BUTTON ================= */
 
 .delete-testimonial-btn {
     background-color: red;
