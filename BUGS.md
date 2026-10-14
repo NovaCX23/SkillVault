@@ -47,3 +47,11 @@
   layout at `max-width: 1024px`, while every other stylesheet uses `1023px`. At
   exactly 1024px the navbar is in desktop mode but the contact page is in tablet
   mode. It renders fine, it's just inconsistent.
+- **Give the footer some bottom padding.** `footer` in `CSS/style.css` only has
+  `padding-top`, so the last footer line sits about 11px from the bottom of the
+  page. That was already true before (the old social icons ended the same way),
+  but it's more noticeable now that the footer is shorter.
+- **Add real policy pages or social accounts later.** The Privacy/Terms/Refund
+  links and the footer social icons were removed because they pointed to `#`.
+  If the project gets real pages or accounts, add them back in
+  `partials/footer.html` and run `node build.js`.
