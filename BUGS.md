@@ -2,15 +2,15 @@
 
 ## Found
 
-- **about.html: footer social links announce the wrong name.** Introduced by me
+## Fixed
+
+- **about.html: footer social links announce the wrong name.** Fixed in `6d8a6d5`. Introduced by me
   in `eaf6147`: the script that added `aria-label`s to the team members' social
   links also matched the footer (it came after the last team card), so screen
   readers announce the footer icons as "Alexander Pierce on Facebook" etc.
   instead of "SkillVault on Facebook".
   Repro: on `about.html`, inspect the footer social links, or tab to them with a
   screen reader on.
-
-## Fixed
 
 - **script.js: multi-line testimonial messages are rejected.** Fixed in `071b966`.
   `messageRegex = /^.{10,300}$/` uses `.`, which doesn't match line breaks, so any
