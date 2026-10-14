@@ -337,7 +337,7 @@ header {
 }
 
 .course__info p {
-    margin: 1.2rem 0 2rem;
+    margin-top: 1.2rem;
     font-size: 0.9rem;
     color: var(--color-light-text);
 }
@@ -535,7 +535,7 @@ footer{
 
 .footer__container{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 5rem;
 }
 
@@ -554,13 +554,6 @@ footer ul li a:hover{
     text-decoration: underline;
 }
 
-
-.footer__socials{
-    display: flex;
-    gap: 1rem;
-    font-size: 1.2rem;
-    margin-top: 2rem;
-}
 
 
 /* ================= END OF FOOTER  ==================== */
@@ -757,8 +750,4 @@ footer ul li a:hover{
 
     .footer__1 p{
         margin: 1rem auto;
-    }
-    .footer__socials{
-        justify-content: center;
-    }
-}
+    }}
