@@ -48,13 +48,13 @@ if (addTestimonialBtn) {
 
     // Avatars picked at random for newly added testimonials
     const avatarImages = [
-        './images/avatar6.jpg',
-        './images/avatar7.jpg',
-        './images/avatar8.jpg',
-        './images/avatar9.jpg',
-        './images/avatar10.jpg',
-        './images/avatar11.jpg',
-        './images/avatar12.jpg'
+        './images/avatar6.webp',
+        './images/avatar7.webp',
+        './images/avatar8.webp',
+        './images/avatar9.webp',
+        './images/avatar10.webp',
+        './images/avatar11.webp',
+        './images/avatar12.webp'
     ];
 
     // Stored as an index into avatarImages (not a path) so saved testimonials
