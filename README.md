@@ -76,7 +76,7 @@ SkillVault/
 ├── courses.html
 ├── contact.html
 ├── login.html        # Login / register demo
-├── script.js         # Navbar, testimonials and FAQ logic (shared by all main pages)
+├── script.js         # Navbar, testimonials, contact form and FAQ logic (shared by every page)
 ├── login.js          # Login / register logic
 ├── login.css
 ├── CSS/
