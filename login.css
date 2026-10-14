@@ -1,39 +1,4 @@
-:root {
-    /* Dark Backgrounds */
-    --color-bg: #101e2d;
-    --color-bg1: #0c1923;
-    --color-bg2: #003d5b;
-
-    /* Primary and Accent Colors */
-    --color-primary: #002f45;
-    --color-accent: #b46f4b;
-
-    /* Text Colors */
-    --color-text: #e0e0e0;
-    --color-light-text: #a8a8a8;
-
-    /* Alert Colors */
-    --color-success: #4caf50;
-    --color-warning: #ff9e1b;
-    --color-danger: #c62828;
-
-    /* Utility Colors */
-    --color-black: #000000;
-    --color-white: #ffffff;
-
-    --container-width-lg: 80%;
-    --container-width-md: 90%;
-    --container-width-sm: 94%;
-    --transition: all 400ms ease;
-    font-family: 'InterVariable', 'Inter', sans-serif;
-    font-feature-settings: 'liga' 1, 'calt' 1;
-}
-
-@supports (font-variation-settings: normal) {
-    :root {
-        font-family: 'InterVariable', sans-serif;
-    }
-}
+/* Colors and fonts come from CSS/style.css, which login.html loads first */
 
 /* Centers the card below the fixed navbar */
 .login {
