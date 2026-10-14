@@ -40,8 +40,24 @@
     min-height: 100vh;
     padding: 7rem 0 2rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 1.5rem;
+}
+
+.login__demo {
+    width: 300px;
+    padding: 1rem;
+    border: 1px solid var(--color-warning);
+    border-radius: 8px;
+    color: var(--color-text);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.login__demo strong {
+    color: var(--color-warning);
 }
 
 .login__card {
@@ -90,7 +106,8 @@
 }
 
 @media (max-width: 400px) {
-    .login__card {
+    .login__card,
+    .login__demo {
         width: 90%; 
     }
 }

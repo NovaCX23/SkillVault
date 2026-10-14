@@ -10,7 +10,7 @@ A responsive, multi-page website for a fictional online learning platform. Built
 | **About** (`about.html`) | Achievements (courses, students, awards) and a team section with hover effects |
 | **Courses** (`courses.html`) | Grid of 15 courses, from UI/UX Design to Public Speaking |
 | **Contact** (`contact.html`) | Contact details, social links and a contact form |
-| **Login** (`login.html`) | Standalone login / register / logout demo backed by `localStorage` |
+| **Login** (`login.html`) | Login / register / logout **demo** backed by `localStorage` (front-end only, see below) |
 
 ## Features
 
@@ -19,8 +19,12 @@ A responsive, multi-page website for a fictional online learning platform. Built
 - **Navbar on scroll:** the transparent navbar gets a solid background once you scroll
 - **FAQ accordion:** click a question to expand it; the icon toggles between plus and minus
 - **Add a testimonial:** form with regex validation (name, role, message length); new testimonials get a random avatar and can be deleted
-- **Login demo:** register and log in with credentials stored in the browser's `localStorage`
+- **Login demo:** register and log in with credentials stored in the browser's `localStorage`. Linked from the navbar on every page
 - **Theming with CSS custom properties:** all colors and container widths are defined in `:root`
+
+## About the login demo
+
+The login page is a **front-end demo only**, and the page itself says so. There is no backend: the username and password are saved **unencrypted** in the browser's `localStorage`, so anyone with access to the browser can read them. It shows the UI flow, not real authentication. Don't enter a real password. A real version would need a backend or an auth provider (e.g. Firebase Auth, Auth0, Supabase) that hashes passwords on the server.
 
 ## Tech stack
 
@@ -74,7 +78,7 @@ Areas for improvement:
 - [ ] **Compress the images.** `images/` is about 70 MB; some team and avatar photos are 5–18 MB each (`tm5.jpg`, `tm4.jpg`, `tm1.jpg`, `avatar9.jpg`...). Resize them to around 400–800px wide and convert to WebP. This would massively speed up page loads.
 - [ ] **Add `loading="lazy"`** to images below the fold (courses, team, testimonials).
 - [x] **Link the login page from the site.** `login.html` isn't reachable from the navbar right now, and it uses its own separate styles.
-- [ ] **Don't store plain-text passwords in `localStorage`.** The login is a front-end demo only. Either label it as a demo, or replace it with a real backend or auth provider.
+- [x] **Don't store plain-text passwords in `localStorage`.** The login is a front-end demo only. Either label it as a demo, or replace it with a real backend or auth provider.
 - [ ] **Make the contact form actually send.** Right now it only reloads the page. Use a service like Formspree, or add a small backend, and show a success message.
 - [ ] **Persist testimonials.** Added testimonials disappear on refresh; save them to `localStorage` (or a backend).
 - [ ] **Fix "Learn More" links.** Every course links back to `courses.html`, and the Categories button and footer links point to `#`. Add course detail pages, or remove the buttons.
