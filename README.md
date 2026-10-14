@@ -87,7 +87,7 @@ Areas for improvement:
 - [ ] **Avoid duplicated markup.** The navbar and footer are copy-pasted in every page. Consider a static site generator or a small templating step.
 - [x] **Tidy up the CSS.** `.testimonials__container` in `style.css` never matches the HTML class `testimonials__Container`. Also, `login.css` duplicates the `:root` variables from `style.css`.
 - [ ] **Improve accessibility.** Use `<button>` elements for the FAQ questions (keyboard and screen-reader support), add `aria-expanded`, use descriptive `alt` text (e.g. `"Ethan Walker"` instead of `"tm1"`), and add `aria-label`s to the icon-only social links.
-- [ ] **Allow non-ASCII names in testimonials.** The name regex rejects names like "Ștefan" or "José"; use `/^[\p{L}\s'-]{3,50}$/u`.
+- [x] **Allow non-ASCII names in testimonials.** The name regex rejects names like "Ștefan" or "José"; use `/^[\p{L}\s'-]{3,50}$/u`.
 - [ ] **Write a unique meta description for each page.** They all share the same one right now, which is bad for SEO.
 
 ## Credits

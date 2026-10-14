@@ -124,13 +124,14 @@ if (addTestimonialBtn) {
         const role = roleInput.value.trim();
         const message = messageInput.value.trim();
 
-        const nameRegex = /^[a-zA-Z\s]{3,50}$/;
+        // \p{L} matches letters in any alphabet, so names like "Ștefan" or "José" pass
+        const nameRegex = /^[\p{L}\s'-]{3,50}$/u;
         const roleRegex = /^[a-zA-Z\s]{2,30}$/;
         // [\s\S] instead of . so messages can contain line breaks
         const messageRegex = /^[\s\S]{10,300}$/;
 
         if (!nameRegex.test(name)) {
-            alert('The name must contain only letters and spaces, between 3 and 50 characters.');
+            alert('The name must contain only letters, spaces, apostrophes and hyphens, between 3 and 50 characters.');
             return;
         }
 
