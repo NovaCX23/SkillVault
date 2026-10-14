@@ -89,7 +89,7 @@ if (addTestimonialBtn) {
         testimonial.classList.add('testimonial');
         testimonial.innerHTML = `
             <div class="avatar">
-                <img alt="Avatar">
+                <img>
             </div>
             <div class="testimonial__info">
                 <h5></h5>
@@ -103,6 +103,7 @@ if (addTestimonialBtn) {
 
         // Fill user input with textContent so it can't inject HTML
         testimonial.querySelector('img').src = avatarImages[avatar] || avatarImages[0];
+        testimonial.querySelector('img').alt = name;
         testimonial.querySelector('h5').textContent = name;
         testimonial.querySelector('small').textContent = role;
         testimonial.querySelector('p').textContent = `"${message}"`;
@@ -204,10 +205,13 @@ if (contactForm) {
 
 // ======================= FAQs =======================
 
-// Show/hide FAQ answers and toggle the plus/minus icon
+// Show/hide FAQ answers and toggle the plus/minus icon.
+// The question is a <button>, so keyboard users can open it with Enter/Space;
+// its click bubbles up to the article, which also stays clickable with the mouse.
 document.querySelectorAll('.faq').forEach(faq => {
     faq.addEventListener('click', () => {
-        faq.classList.toggle('open');
+        const isOpen = faq.classList.toggle('open');
+        faq.querySelector('.faq__question').setAttribute('aria-expanded', isOpen);
 
         const icon = faq.querySelector('.faq__icon i');
         icon.classList.toggle('uil-plus');

@@ -373,6 +373,21 @@ header {
     line-height:2.2;
 }
 
+/* Looks like plain heading text; it's a button for keyboard and screen readers */
+.faq__question{
+    background: none;
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.faq__question:focus-visible{
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+}
+
 .faq__icon{
     align-self: flex-start;
     font-size: 1.2rem;
