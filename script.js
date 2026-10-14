@@ -57,9 +57,34 @@ if (addTestimonialBtn) {
         './images/avatar12.jpg'
     ];
 
-    const getRandomAvatar = () => avatarImages[Math.floor(Math.random() * avatarImages.length)];
+    // Stored as an index into avatarImages (not a path) so saved testimonials
+    // keep working if the image files are renamed
+    const getRandomAvatar = () => Math.floor(Math.random() * avatarImages.length);
 
-    function addTestimonial(name, role, message, avatar) {
+    // Added testimonials are saved in localStorage so they survive a refresh
+    const STORAGE_KEY = 'testimonials';
+
+    const loadTestimonials = () => {
+        try {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+            return Array.isArray(saved) ? saved : [];
+        } catch {
+            return [];
+        }
+    };
+
+    const saveTestimonials = () => {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(savedTestimonials));
+        } catch {
+            // Storage unavailable (e.g. blocked by the browser): the testimonial
+            // still shows on the page, it just won't survive a refresh
+        }
+    };
+
+    let savedTestimonials = loadTestimonials();
+
+    function addTestimonial({ id, name, role, message, avatar }) {
         const testimonial = document.createElement('article');
         testimonial.classList.add('testimonial');
         testimonial.innerHTML = `
@@ -77,22 +102,22 @@ if (addTestimonialBtn) {
         `;
 
         // Fill user input with textContent so it can't inject HTML
-        testimonial.querySelector('img').src = avatar;
+        testimonial.querySelector('img').src = avatarImages[avatar] || avatarImages[0];
         testimonial.querySelector('h5').textContent = name;
         testimonial.querySelector('small').textContent = role;
         testimonial.querySelector('p').textContent = `"${message}"`;
 
         testimonial.querySelector('.delete-testimonial-btn').addEventListener('click', () => {
             testimonial.remove();
+            savedTestimonials = savedTestimonials.filter(saved => saved.id !== id);
+            saveTestimonials();
         });
 
         // Keep the form as the last item in the list
         testimonialsContainer.insertBefore(testimonial, testimonialForm);
-
-        nameInput.value = '';
-        roleInput.value = '';
-        messageInput.value = '';
     }
+
+    savedTestimonials.forEach(addTestimonial);
 
     addTestimonialBtn.addEventListener('click', () => {
         const name = nameInput.value.trim();
@@ -118,7 +143,14 @@ if (addTestimonialBtn) {
             return;
         }
 
-        addTestimonial(name, role, message, getRandomAvatar());
+        const testimonial = { id: Date.now().toString(), name, role, message, avatar: getRandomAvatar() };
+        savedTestimonials.push(testimonial);
+        saveTestimonials();
+        addTestimonial(testimonial);
+
+        nameInput.value = '';
+        roleInput.value = '';
+        messageInput.value = '';
     });
 }
 

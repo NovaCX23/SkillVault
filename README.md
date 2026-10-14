@@ -18,7 +18,7 @@ A responsive, multi-page website for a fictional online learning platform. Built
 - **Mobile navigation:** hamburger menu that opens and closes the nav on small screens
 - **Navbar on scroll:** the transparent navbar gets a solid background once you scroll
 - **FAQ accordion:** click a question to expand it; the icon toggles between plus and minus
-- **Add a testimonial:** form with regex validation (name, role, message length); new testimonials get a random avatar and can be deleted
+- **Add a testimonial:** form with regex validation (name, role, message length); new testimonials get a random avatar, are saved in `localStorage` so they survive a refresh, and can be deleted
 - **Login demo:** register and log in with credentials stored in the browser's `localStorage`. Linked from the navbar on every page
 - **Theming with CSS custom properties:** all colors and container widths are defined in `:root`
 
@@ -80,7 +80,7 @@ Areas for improvement:
 - [x] **Link the login page from the site.** `login.html` isn't reachable from the navbar right now, and it uses its own separate styles.
 - [x] **Don't store plain-text passwords in `localStorage`.** The login is a front-end demo only. Either label it as a demo, or replace it with a real backend or auth provider.
 - [ ] **Make the contact form actually send.** Right now it only reloads the page. Use a service like Formspree, or add a small backend, and show a success message.
-- [ ] **Persist testimonials.** Added testimonials disappear on refresh; save them to `localStorage` (or a backend).
+- [x] **Persist testimonials.** Added testimonials disappear on refresh; save them to `localStorage` (or a backend).
 - [ ] **Fix "Learn More" links.** Every course links back to `courses.html`, and the Categories button and footer links point to `#`. Add course detail pages, or remove the buttons.
 - [x] **Fix the mobile menu state on resize.** If you close the mobile menu and then widen the window, the desktop nav stays hidden because of the inline `display: none`. Toggle a CSS class instead of setting inline styles.
 - [x] **Close the mobile menu when a link is clicked**, and highlight the active page in the navbar.
