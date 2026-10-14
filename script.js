@@ -89,7 +89,7 @@ if (addTestimonialBtn) {
         testimonial.classList.add('testimonial');
         testimonial.innerHTML = `
             <div class="avatar">
-                <img>
+                <img loading="lazy">
             </div>
             <div class="testimonial__info">
                 <h5></h5>
