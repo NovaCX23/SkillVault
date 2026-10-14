@@ -126,7 +126,8 @@ if (addTestimonialBtn) {
 
         const nameRegex = /^[a-zA-Z\s]{3,50}$/;
         const roleRegex = /^[a-zA-Z\s]{2,30}$/;
-        const messageRegex = /^.{10,300}$/;
+        // [\s\S] instead of . so messages can contain line breaks
+        const messageRegex = /^[\s\S]{10,300}$/;
 
         if (!nameRegex.test(name)) {
             alert('The name must contain only letters and spaces, between 3 and 50 characters.');
