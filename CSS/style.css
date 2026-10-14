@@ -164,6 +164,12 @@ nav button {
     color: var(--color-bg2);
 }
 
+/* Current page, set by script.js */
+.nav__menu a.active {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
 
 
 /* ======================= END OF NAVBAR ==================== */
@@ -614,7 +620,8 @@ footer ul li a:hover{
         place-items:center;
     }
 
-    .nav__menu li a:hover{
+    .nav__menu li a:hover,
+    .nav__menu li a.active{
         background: var(--color-bg2);
         color: var(--color-white);
     }

@@ -22,6 +22,17 @@ const closeNav = () => {
 
 closeBtn.addEventListener('click', closeNav);
 
+// Close the mobile menu when a link is clicked, and highlight the current page
+const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+document.querySelectorAll('.nav__menu a').forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+        link.setAttribute('aria-current', 'page');
+    }
+    link.addEventListener('click', closeNav);
+});
+
 
 // ======================= TESTIMONIALS =======================
 
