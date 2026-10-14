@@ -34,26 +34,19 @@
         font-family: 'InterVariable', sans-serif;
     }
 }
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
 
-body {
-    font-family: 'InterVariable', sans-serif;
-    line-height: 1.7;
-    color: var(--color-bg);
-    background: var(--color-bg);
+/* Centers the card below the fixed navbar */
+.login {
+    min-height: 100vh;
+    padding: 7rem 0 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#login-container,
-#register-container,
-#welcome-container {
+.login__card {
     background-color: var(--color-white);
+    color: var(--color-bg);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -61,8 +54,16 @@ body {
     text-align: center;
 }
 
+.login__card h2 {
+    margin-bottom: 1rem;
+}
 
-input[type="text"], input[type="password"] {
+.login__card a {
+    color: var(--color-bg2);
+    font-weight: 600;
+}
+
+.login__card input[type="text"], .login__card input[type="password"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -72,7 +73,7 @@ input[type="text"], input[type="password"] {
     box-sizing: border-box; 
 }
 
-button {
+.login__card button {
     width: 100%;
     padding: 10px;
     background-color: var(--color-primary);
@@ -84,14 +85,12 @@ button {
     margin-top: 10px;
 }
 
-button:hover {
+.login__card button:hover {
     background-color: var(--color-accent);
 }
 
 @media (max-width: 400px) {
-    #login-container,
-    #register-container,
-    #welcome-container {
+    .login__card {
         width: 90%; 
     }
 }

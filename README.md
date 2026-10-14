@@ -73,7 +73,7 @@ Areas for improvement:
 
 - [ ] **Compress the images.** `images/` is about 70 MB; some team and avatar photos are 5–18 MB each (`tm5.jpg`, `tm4.jpg`, `tm1.jpg`, `avatar9.jpg`...). Resize them to around 400–800px wide and convert to WebP. This would massively speed up page loads.
 - [ ] **Add `loading="lazy"`** to images below the fold (courses, team, testimonials).
-- [ ] **Link the login page from the site.** `login.html` isn't reachable from the navbar right now, and it uses its own separate styles.
+- [x] **Link the login page from the site.** `login.html` isn't reachable from the navbar right now, and it uses its own separate styles.
 - [ ] **Don't store plain-text passwords in `localStorage`.** The login is a front-end demo only. Either label it as a demo, or replace it with a real backend or auth provider.
 - [ ] **Make the contact form actually send.** Right now it only reloads the page. Use a service like Formspree, or add a small backend, and show a success message.
 - [ ] **Persist testimonials.** Added testimonials disappear on refresh; save them to `localStorage` (or a backend).
