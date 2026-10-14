@@ -1,6 +1,6 @@
 # SkillVault
 
-A responsive, multi-page website for a fictional online learning platform. Built with plain **HTML, CSS and JavaScript** — no frameworks, no build step — as a first-year university project.
+A responsive, multi-page website for a fictional online learning platform. Built with plain **HTML, CSS and JavaScript** — no frameworks, and no build step needed to run it (a tiny optional Node script keeps the shared navbar and footer in sync) — as a first-year university project.
 
 ## Pages
 
@@ -67,6 +67,24 @@ python -m http.server 8000
 
 Because the entry point is `index.html`, the site can also be deployed as-is to GitHub Pages, Netlify or any static host.
 
+## Editing the navbar and footer
+
+The navbar and footer are shared by every page, so they live in one place: `partials/nav.html` and `partials/footer.html`. In each page they sit between markers like these:
+
+```html
+<!-- @include nav -->
+...generated, don't edit here...
+<!-- @end nav -->
+```
+
+After editing a partial, copy it into every page with:
+
+```bash
+node build.js
+```
+
+The script has no dependencies (any recent Node.js works) and only rewrites the code between the markers. The pages stay plain HTML, so nothing else changes: you can still open them directly and deploy them as-is. Commit the updated pages along with the partial.
+
 ## Project structure
 
 ```
@@ -79,6 +97,10 @@ SkillVault/
 ├── script.js         # Navbar, testimonials, contact form and FAQ logic (shared by every page)
 ├── login.js          # Login / register logic
 ├── login.css
+├── build.js          # Copies partials/ into every page (node build.js)
+├── partials/
+│   ├── nav.html      # Shared navbar
+│   └── footer.html   # Shared footer
 ├── CSS/
 │   ├── style.css     # Global styles + home and courses pages
 │   ├── about.css
@@ -99,7 +121,7 @@ Areas for improvement:
 - [ ] **Fix "Learn More" links.** Every course links back to `courses.html`, and the Categories button and footer links point to `#`. Add course detail pages, or remove the buttons.
 - [x] **Fix the mobile menu state on resize.** If you close the mobile menu and then widen the window, the desktop nav stays hidden because of the inline `display: none`. Toggle a CSS class instead of setting inline styles.
 - [x] **Close the mobile menu when a link is clicked**, and highlight the active page in the navbar.
-- [ ] **Avoid duplicated markup.** The navbar and footer are copy-pasted in every page. Consider a static site generator or a small templating step.
+- [x] **Avoid duplicated markup.** The navbar and footer are copy-pasted in every page. Consider a static site generator or a small templating step.
 - [x] **Tidy up the CSS.** `.testimonials__container` in `style.css` never matches the HTML class `testimonials__Container`. Also, `login.css` duplicates the `:root` variables from `style.css`.
 - [x] **Improve accessibility.** Use `<button>` elements for the FAQ questions (keyboard and screen-reader support), add `aria-expanded`, use descriptive `alt` text (e.g. `"Ethan Walker"` instead of `"tm1"`), and add `aria-label`s to the icon-only social links.
 - [x] **Allow non-ASCII names in testimonials.** The name regex rejects names like "Ștefan" or "José"; use `/^[\p{L}\s'-]{3,50}$/u`.
