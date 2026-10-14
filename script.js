@@ -43,7 +43,7 @@ if (addTestimonialBtn) {
     const nameInput = document.querySelector('#testimonial-name');
     const roleInput = document.querySelector('#testimonial-role');
     const messageInput = document.querySelector('#testimonial-message');
-    const testimonialsContainer = document.querySelector('.testimonials__Container > div');
+    const testimonialsContainer = document.querySelector('.testimonials__list');
     const testimonialForm = document.querySelector('.testimonial__form');
 
     // Avatars picked at random for newly added testimonials
