@@ -26,3 +26,16 @@
   combining marks, so a name typed in decomposed form (e.g. "S" + combining comma
   for "Ș", which some keyboards and copy-paste sources produce) is rejected.
   `name.normalize('NFC')` before the regex test would fix it.
+- **Restore keyboard focus outlines site-wide.** The reset in `CSS/style.css`
+  (`* { outline: 0; }`) removes the focus ring from every link, button and input,
+  so keyboard users can't see where they are. I only added a `:focus-visible`
+  style for the new FAQ buttons; a global `:focus-visible` rule would fix the rest.
+- **Add labels to form fields.** The testimonial, contact and login inputs only
+  have placeholders, which screen readers don't reliably announce and which
+  disappear while typing. Visible `<label>`s (or at least `aria-label`) would help.
+- **Expose the mobile menu state.** The hamburger/close buttons could set
+  `aria-expanded` and `aria-controls` on open/close, like the FAQ buttons now do.
+- **Align the contact page breakpoint.** `CSS/contact.css` switches to the tablet
+  layout at `max-width: 1024px`, while every other stylesheet uses `1023px`. At
+  exactly 1024px the navbar is in desktop mode but the contact page is in tablet
+  mode. It renders fine, it's just inconsistent.
