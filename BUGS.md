@@ -18,3 +18,11 @@
   Repro: open `login.html`, click "Register here"; the address bar ends in `#`.
 
 ## Suggestions
+
+- **Allow non-ASCII roles too.** `roleRegex` in `script.js` is still
+  `/^[a-zA-Z\s]{2,30}$/`, so roles like "Développeur" or "Diseñadora" are
+  rejected. The TODO only covered names; the same `\p{L}` fix would work here.
+- **Normalize testimonial input to NFC before validating.** `\p{L}` doesn't match
+  combining marks, so a name typed in decomposed form (e.g. "S" + combining comma
+  for "Ș", which some keyboards and copy-paste sources produce) is rejected.
+  `name.normalize('NFC')` before the regex test would fix it.
