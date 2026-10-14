@@ -5,21 +5,19 @@ window.addEventListener('scroll', () => {
     document.querySelector('nav').classList.toggle('window-scroll', window.scrollY > 0);
 });
 
-// Show/hide the nav menu on smaller screens
-const menu = document.querySelector('.nav__menu');
+// Show/hide the nav menu on smaller screens.
+// Toggling a class (instead of inline styles) lets the CSS media queries
+// decide what is visible, so the desktop nav comes back after a resize.
+const nav = document.querySelector('nav');
 const menuBtn = document.querySelector('#open-menu-btn');
 const closeBtn = document.querySelector('#close-menu-btn');
 
 menuBtn.addEventListener('click', () => {
-    menu.style.display = 'flex';
-    closeBtn.style.display = 'inline-block';
-    menuBtn.style.display = 'none';
+    nav.classList.add('menu-open');
 });
 
 const closeNav = () => {
-    menu.style.display = 'none';
-    closeBtn.style.display = 'none';
-    menuBtn.style.display = 'inline-block';
+    nav.classList.remove('menu-open');
 };
 
 closeBtn.addEventListener('click', closeNav);
