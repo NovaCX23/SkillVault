@@ -157,6 +157,51 @@ if (addTestimonialBtn) {
 }
 
 
+// ======================= CONTACT FORM =======================
+
+const contactForm = document.querySelector('.contact__form');
+
+// The contact form only exists on the contact page.
+// It is sent to Formspree (the form's action URL) without reloading the page.
+if (contactForm) {
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const formStatus = contactForm.querySelector('.form__status');
+
+    const showStatus = (message, type) => {
+        formStatus.textContent = message;
+        formStatus.className = `form__status ${type}`;
+    };
+
+    contactForm.addEventListener('submit', async event => {
+        event.preventDefault();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        showStatus('', '');
+
+        try {
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: new FormData(contactForm),
+                headers: { Accept: 'application/json' }
+            });
+
+            if (response.ok) {
+                contactForm.reset();
+                showStatus('Thanks! Your message has been sent.', 'success');
+            } else {
+                showStatus('Sorry, your message could not be sent.', 'error');
+            }
+        } catch {
+            showStatus('Network error. Please try again.', 'error');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+        }
+    });
+}
+
+
 // ======================= FAQs =======================
 
 // Show/hide FAQ answers and toggle the plus/minus icon

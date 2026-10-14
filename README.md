@@ -9,7 +9,7 @@ A responsive, multi-page website for a fictional online learning platform. Built
 | **Home** (`index.html`) | Hero section, course categories, popular courses, an interactive FAQ and a student testimonials section where visitors can add their own testimonial |
 | **About** (`about.html`) | Achievements (courses, students, awards) and a team section with hover effects |
 | **Courses** (`courses.html`) | Grid of 15 courses, from UI/UX Design to Public Speaking |
-| **Contact** (`contact.html`) | Contact details, social links and a contact form |
+| **Contact** (`contact.html`) | Contact details, social links and a contact form sent through [Formspree](https://formspree.io/) |
 | **Login** (`login.html`) | Login / register / logout **demo** backed by `localStorage` (front-end only, see below) |
 
 ## Features
@@ -19,8 +19,23 @@ A responsive, multi-page website for a fictional online learning platform. Built
 - **Navbar on scroll:** the transparent navbar gets a solid background once you scroll
 - **FAQ accordion:** click a question to expand it; the icon toggles between plus and minus
 - **Add a testimonial:** form with regex validation (name, role, message length); new testimonials get a random avatar, are saved in `localStorage` so they survive a refresh, and can be deleted
+- **Contact form:** submitted to Formspree with `fetch`, showing a success or error message without reloading the page
 - **Login demo:** register and log in with credentials stored in the browser's `localStorage`. Linked from the navbar on every page
 - **Theming with CSS custom properties:** all colors and container widths are defined in `:root`
+
+## Setting up the contact form
+
+The contact form posts to [Formspree](https://formspree.io/), so it works on any static host with no backend. Out of the box it points at a placeholder and will show an error message when submitted. To receive real messages:
+
+1. Create a free account at [formspree.io](https://formspree.io/) and add a new form.
+2. Copy the form's ID (the part after `/f/` in its endpoint, e.g. `https://formspree.io/f/abcdwxyz`).
+3. In `contact.html`, replace `YOUR_FORM_ID` in the form's `action` attribute:
+
+   ```html
+   <form class="contact__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+   ```
+
+That's the only place the ID lives; `script.js` reads the URL from the form's `action`.
 
 ## About the login demo
 
@@ -79,7 +94,7 @@ Areas for improvement:
 - [ ] **Add `loading="lazy"`** to images below the fold (courses, team, testimonials).
 - [x] **Link the login page from the site.** `login.html` isn't reachable from the navbar right now, and it uses its own separate styles.
 - [x] **Don't store plain-text passwords in `localStorage`.** The login is a front-end demo only. Either label it as a demo, or replace it with a real backend or auth provider.
-- [ ] **Make the contact form actually send.** Right now it only reloads the page. Use a service like Formspree, or add a small backend, and show a success message.
+- [x] **Make the contact form actually send.** Right now it only reloads the page. Use a service like Formspree, or add a small backend, and show a success message.
 - [x] **Persist testimonials.** Added testimonials disappear on refresh; save them to `localStorage` (or a backend).
 - [ ] **Fix "Learn More" links.** Every course links back to `courses.html`, and the Categories button and footer links point to `#`. Add course detail pages, or remove the buttons.
 - [x] **Fix the mobile menu state on resize.** If you close the mobile menu and then widen the window, the desktop nav stays hidden because of the inline `display: none`. Toggle a CSS class instead of setting inline styles.

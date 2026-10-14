@@ -91,6 +91,46 @@ input, textarea{
     cursor: pointer;
 }
 
+.contact__form .btn:disabled{
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Button and status message side by side, so the message doesn't make the
+   fixed-height desktop container overflow */
+.form__actions{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.form__actions .btn{
+    margin-top: 0;
+    flex-shrink: 0;
+}
+
+/* Success/error message, set by script.js */
+.form__status:empty{
+    display: none;
+}
+
+.form__status{
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border-left: 4px solid var(--color-light-text);
+    background: var(--color-bg);
+    font-size: 0.9rem;
+}
+
+.form__status.success{
+    border-color: var(--color-success);
+}
+
+.form__status.error{
+    border-color: var(--color-danger);
+}
+
 /* ======================== TABLET ==========================*/
 
 @media screen and (max-width: 1024px){
