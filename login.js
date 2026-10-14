@@ -16,8 +16,15 @@ const logoutButton = document.getElementById('logout-button');
 // Event Listeners
 loginForm.addEventListener('submit', handleLogin);
 registerForm.addEventListener('submit', handleRegister);
-showRegisterLink.addEventListener('click', showRegister);
-showLoginLink.addEventListener('click', showLogin);
+// preventDefault stops the href="#" links from changing the URL
+showRegisterLink.addEventListener('click', event => {
+    event.preventDefault();
+    showRegister();
+});
+showLoginLink.addEventListener('click', event => {
+    event.preventDefault();
+    showLogin();
+});
 logoutButton.addEventListener('click', handleLogout);
 
 // Functions
