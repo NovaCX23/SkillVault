@@ -164,6 +164,22 @@ nav button {
     color: var(--color-bg2);
 }
 
+/* Logged-in username shown instead of "Login", set by script.js */
+.nav__username {
+    display: inline-block;
+    max-width: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+}
+
+/* Current page, set by script.js */
+.nav__menu a.active {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
 
 
 /* ======================= END OF NAVBAR ==================== */
@@ -331,7 +347,7 @@ header {
 }
 
 .course__info p {
-    margin: 1.2rem 0 2rem;
+    margin-top: 1.2rem;
     font-size: 0.9rem;
     color: var(--color-light-text);
 }
@@ -367,6 +383,21 @@ header {
     line-height:2.2;
 }
 
+/* Looks like plain heading text; it's a button for keyboard and screen readers */
+.faq__question{
+    background: none;
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.faq__question:focus-visible{
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+}
+
 .faq__icon{
     align-self: flex-start;
     font-size: 1.2rem;
@@ -392,13 +423,68 @@ header {
     overflow-x: hidden;
     position: relative;
     margin-bottom: 5rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem; 
+}
+
+/* Slider: one testimonial per view, moved with the arrows (script.js) or by swiping */
+.testimonials__slider {
+    position: relative;
+}
+
+.testimonials__list {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.testimonials__list::-webkit-scrollbar {
+    display: none;
 }
 
 .testimonial {
-    padding-top: 2rem;
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    padding: 2rem 5rem 0;
+}
+
+.testimonials__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 1.8rem;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.testimonials__arrow:hover {
+    background: var(--color-bg2);
+}
+
+.testimonials__arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.testimonials__arrow:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.testimonials__arrow--prev {
+    left: 0;
+}
+
+.testimonials__arrow--next {
+    right: 0;
 }
 
 
@@ -511,7 +597,7 @@ footer{
 
 .footer__container{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 5rem;
 }
 
@@ -530,13 +616,6 @@ footer ul li a:hover{
     text-decoration: underline;
 }
 
-
-.footer__socials{
-    display: flex;
-    gap: 1rem;
-    font-size: 1.2rem;
-    margin-top: 2rem;
-}
 
 
 /* ================= END OF FOOTER  ==================== */
@@ -587,6 +666,19 @@ footer ul li a:hover{
         display: none;
     }
 
+    /* Applied by script.js when the mobile menu is open */
+    nav.menu-open .nav__menu{
+        display: flex;
+    }
+
+    nav.menu-open #open-menu-btn{
+        display: none;
+    }
+
+    nav.menu-open #close-menu-btn{
+        display: inline-block;
+    }
+
     .nav__menu li{
         width: 100%;
         height: 5.8rem;
@@ -601,7 +693,8 @@ footer ul li a:hover{
         place-items:center;
     }
 
-    .nav__menu li a:hover{
+    .nav__menu li a:hover,
+    .nav__menu li a.active{
         background: var(--color-bg2);
         color: var(--color-white);
     }
@@ -706,6 +799,14 @@ footer ul li a:hover{
     }
 
     /*============ TESTIMONIALS =============*/
+    .testimonial{
+        padding: 2rem 3rem 0;
+    }
+    .testimonials__arrow{
+        width: 2.4rem;
+        height: 2.4rem;
+        font-size: 1.4rem;
+    }
     .testimonial__body{
         padding: 1.2rem;
     }
@@ -719,8 +820,4 @@ footer ul li a:hover{
 
     .footer__1 p{
         margin: 1rem auto;
-    }
-    .footer__socials{
-        justify-content: center;
-    }
-}
+    }}

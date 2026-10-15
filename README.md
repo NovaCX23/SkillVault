@@ -1,6 +1,6 @@
 # SkillVault
 
-A responsive, multi-page website for a fictional online learning platform. Built with plain **HTML, CSS and JavaScript** — no frameworks, no build step — as a first-year university project.
+A responsive, multi-page website for a fictional online learning platform. Built with plain **HTML, CSS and JavaScript** — no frameworks, and no build step needed to run it (a tiny optional Node script keeps the shared navbar and footer in sync) — as a first-year university project.
 
 ## Pages
 
@@ -9,8 +9,8 @@ A responsive, multi-page website for a fictional online learning platform. Built
 | **Home** (`index.html`) | Hero section, course categories, popular courses, an interactive FAQ and a student testimonials section where visitors can add their own testimonial |
 | **About** (`about.html`) | Achievements (courses, students, awards) and a team section with hover effects |
 | **Courses** (`courses.html`) | Grid of 15 courses, from UI/UX Design to Public Speaking |
-| **Contact** (`contact.html`) | Contact details, social links and a contact form |
-| **Login** (`login.html`) | Standalone login / register / logout demo backed by `localStorage` |
+| **Contact** (`contact.html`) | Contact details, social links and a contact form sent through [Formspree](https://formspree.io/) |
+| **Login** (`login.html`) | Login / register / logout **demo** backed by `localStorage` (front-end only, see below) |
 
 ## Features
 
@@ -18,9 +18,29 @@ A responsive, multi-page website for a fictional online learning platform. Built
 - **Mobile navigation:** hamburger menu that opens and closes the nav on small screens
 - **Navbar on scroll:** the transparent navbar gets a solid background once you scroll
 - **FAQ accordion:** click a question to expand it; the icon toggles between plus and minus
-- **Add a testimonial:** form with regex validation (name, role, message length); new testimonials get a random avatar and can be deleted
-- **Login demo:** register and log in with credentials stored in the browser's `localStorage`
+- **Testimonials slider:** one testimonial at a time, with previous/next arrows (or swipe on touch screens)
+- **Add a testimonial:** form with regex validation (name, role, message length); new testimonials get a random avatar, are saved in `localStorage` so they survive a refresh, and can be deleted
+- **Contact form:** submitted to Formspree with `fetch`, showing a success or error message without reloading the page
+- **Login demo:** register and log in with credentials stored in the browser's `localStorage`. Linked from the navbar on every page; once logged in, the navbar shows your username instead of "Login" (click it to log out)
 - **Theming with CSS custom properties:** all colors and container widths are defined in `:root`
+
+## Setting up the contact form
+
+The contact form posts to [Formspree](https://formspree.io/), so it works on any static host with no backend. Out of the box it points at a placeholder and will show an error message when submitted. To receive real messages:
+
+1. Create a free account at [formspree.io](https://formspree.io/) and add a new form.
+2. Copy the form's ID (the part after `/f/` in its endpoint, e.g. `https://formspree.io/f/abcdwxyz`).
+3. In `contact.html`, replace `YOUR_FORM_ID` in the form's `action` attribute:
+
+   ```html
+   <form class="contact__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+   ```
+
+That's the only place the ID lives; `script.js` reads the URL from the form's `action`.
+
+## About the login demo
+
+The login page is a **front-end demo only**, and the page itself says so. There is no backend: the username and password are saved **unencrypted** in the browser's `localStorage`, so anyone with access to the browser can read them. It shows the UI flow, not real authentication. Don't enter a real password. A real version would need a backend or an auth provider (e.g. Firebase Auth, Auth0, Supabase) that hashes passwords on the server.
 
 ## Tech stack
 
@@ -48,6 +68,24 @@ python -m http.server 8000
 
 Because the entry point is `index.html`, the site can also be deployed as-is to GitHub Pages, Netlify or any static host.
 
+## Editing the navbar and footer
+
+The navbar and footer are shared by every page, so they live in one place: `partials/nav.html` and `partials/footer.html`. In each page they sit between markers like these:
+
+```html
+<!-- @include nav -->
+...generated, don't edit here...
+<!-- @end nav -->
+```
+
+After editing a partial, copy it into every page with:
+
+```bash
+node build.js
+```
+
+The script has no dependencies (any recent Node.js works) and only rewrites the code between the markers. The pages stay plain HTML, so nothing else changes: you can still open them directly and deploy them as-is. Commit the updated pages along with the partial.
+
 ## Project structure
 
 ```
@@ -57,9 +95,13 @@ SkillVault/
 ├── courses.html
 ├── contact.html
 ├── login.html        # Login / register demo
-├── script.js         # Navbar, testimonials and FAQ logic (shared by all main pages)
+├── script.js         # Navbar, testimonials, contact form and FAQ logic (shared by every page)
 ├── login.js          # Login / register logic
 ├── login.css
+├── build.js          # Copies partials/ into every page (node build.js)
+├── partials/
+│   ├── nav.html      # Shared navbar
+│   └── footer.html   # Shared footer
 ├── CSS/
 │   ├── style.css     # Global styles + home and courses pages
 │   ├── about.css
@@ -71,20 +113,20 @@ SkillVault/
 
 Areas for improvement:
 
-- [ ] **Compress the images.** `images/` is about 70 MB; some team and avatar photos are 5–18 MB each (`tm5.jpg`, `tm4.jpg`, `tm1.jpg`, `avatar9.jpg`...). Resize them to around 400–800px wide and convert to WebP. This would massively speed up page loads.
-- [ ] **Add `loading="lazy"`** to images below the fold (courses, team, testimonials).
-- [ ] **Link the login page from the site.** `login.html` isn't reachable from the navbar right now, and it uses its own separate styles.
-- [ ] **Don't store plain-text passwords in `localStorage`.** The login is a front-end demo only. Either label it as a demo, or replace it with a real backend or auth provider.
-- [ ] **Make the contact form actually send.** Right now it only reloads the page. Use a service like Formspree, or add a small backend, and show a success message.
-- [ ] **Persist testimonials.** Added testimonials disappear on refresh; save them to `localStorage` (or a backend).
-- [ ] **Fix "Learn More" links.** Every course links back to `courses.html`, and the Categories button and footer links point to `#`. Add course detail pages, or remove the buttons.
-- [ ] **Fix the mobile menu state on resize.** If you close the mobile menu and then widen the window, the desktop nav stays hidden because of the inline `display: none`. Toggle a CSS class instead of setting inline styles.
-- [ ] **Close the mobile menu when a link is clicked**, and highlight the active page in the navbar.
-- [ ] **Avoid duplicated markup.** The navbar and footer are copy-pasted in every page. Consider a static site generator or a small templating step.
-- [ ] **Tidy up the CSS.** `.testimonials__container` in `style.css` never matches the HTML class `testimonials__Container`. Also, `login.css` duplicates the `:root` variables from `style.css`.
-- [ ] **Improve accessibility.** Use `<button>` elements for the FAQ questions (keyboard and screen-reader support), add `aria-expanded`, use descriptive `alt` text (e.g. `"Ethan Walker"` instead of `"tm1"`), and add `aria-label`s to the icon-only social links.
-- [ ] **Allow non-ASCII names in testimonials.** The name regex rejects names like "Ștefan" or "José"; use `/^[\p{L}\s'-]{3,50}$/u`.
-- [ ] **Write a unique meta description for each page.** They all share the same one right now, which is bad for SEO.
+- [x] **Compress the images.** `images/` is about 70 MB; some team and avatar photos are 5–18 MB each (`tm5.jpg`, `tm4.jpg`, `tm1.jpg`, `avatar9.jpg`...). Resize them to around 400–800px wide and convert to WebP. This would massively speed up page loads.
+- [x] **Add `loading="lazy"`** to images below the fold (courses, team, testimonials).
+- [x] **Link the login page from the site.** `login.html` isn't reachable from the navbar right now, and it uses its own separate styles.
+- [x] **Don't store plain-text passwords in `localStorage`.** The login is a front-end demo only. Either label it as a demo, or replace it with a real backend or auth provider.
+- [x] **Make the contact form actually send.** Right now it only reloads the page. Use a service like Formspree, or add a small backend, and show a success message.
+- [x] **Persist testimonials.** Added testimonials disappear on refresh; save them to `localStorage` (or a backend).
+- [x] **Fix "Learn More" links.** Every course links back to `courses.html`, and the Categories button and footer links point to `#`. Add course detail pages, or remove the buttons.
+- [x] **Fix the mobile menu state on resize.** If you close the mobile menu and then widen the window, the desktop nav stays hidden because of the inline `display: none`. Toggle a CSS class instead of setting inline styles.
+- [x] **Close the mobile menu when a link is clicked**, and highlight the active page in the navbar.
+- [x] **Avoid duplicated markup.** The navbar and footer are copy-pasted in every page. Consider a static site generator or a small templating step.
+- [x] **Tidy up the CSS.** `.testimonials__container` in `style.css` never matches the HTML class `testimonials__Container`. Also, `login.css` duplicates the `:root` variables from `style.css`.
+- [x] **Improve accessibility.** Use `<button>` elements for the FAQ questions (keyboard and screen-reader support), add `aria-expanded`, use descriptive `alt` text (e.g. `"Ethan Walker"` instead of `"tm1"`), and add `aria-label`s to the icon-only social links.
+- [x] **Allow non-ASCII names in testimonials.** The name regex rejects names like "Ștefan" or "José"; use `/^[\p{L}\s'-]{3,50}$/u`.
+- [x] **Write a unique meta description for each page.** They all share the same one right now, which is bad for SEO.
 
 ## Credits
 
