@@ -164,6 +164,16 @@ nav button {
     color: var(--color-bg2);
 }
 
+/* Logged-in username shown instead of "Login", set by script.js */
+.nav__username {
+    display: inline-block;
+    max-width: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+}
+
 /* Current page, set by script.js */
 .nav__menu a.active {
     color: var(--color-accent);

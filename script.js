@@ -33,6 +33,33 @@ document.querySelectorAll('.nav__menu a').forEach(link => {
     link.addEventListener('click', closeNav);
 });
 
+// Show the logged-in username instead of "Login" (front-end demo, see login.js).
+// The link still goes to login.html, which shows the Logout button.
+const loginLink = document.querySelector('.nav__menu a[href="login.html"]');
+
+function updateLoginLink() {
+    let username = null;
+    try {
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            username = (localStorage.getItem('username') || '').trim();
+        }
+    } catch {
+        // Storage unavailable: treat as logged out
+    }
+
+    if (username) {
+        // One wrapper span, so the mobile menu (display: grid) keeps icon and name on one line
+        loginLink.innerHTML = '<span class="nav__user"><i class="uil uil-user" aria-hidden="true"></i> <span class="nav__username"></span></span>';
+        loginLink.querySelector('.nav__username').textContent = username;
+        loginLink.title = `Logged in as ${username}. Open to log out.`;
+    } else {
+        loginLink.textContent = 'Login';
+        loginLink.removeAttribute('title');
+    }
+}
+
+updateLoginLink();
+
 
 // ======================= TESTIMONIALS =======================
 

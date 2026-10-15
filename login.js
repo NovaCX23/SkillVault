@@ -63,6 +63,8 @@ function handleRegister(event) {
 function handleLogout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('username');
+    // Switch the navbar back from the username to "Login" (defined in script.js)
+    updateLoginLink();
     showLogin();
 }
 

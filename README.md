@@ -21,7 +21,7 @@ A responsive, multi-page website for a fictional online learning platform. Built
 - **Testimonials slider:** one testimonial at a time, with previous/next arrows (or swipe on touch screens)
 - **Add a testimonial:** form with regex validation (name, role, message length); new testimonials get a random avatar, are saved in `localStorage` so they survive a refresh, and can be deleted
 - **Contact form:** submitted to Formspree with `fetch`, showing a success or error message without reloading the page
-- **Login demo:** register and log in with credentials stored in the browser's `localStorage`. Linked from the navbar on every page
+- **Login demo:** register and log in with credentials stored in the browser's `localStorage`. Linked from the navbar on every page; once logged in, the navbar shows your username instead of "Login" (click it to log out)
 - **Theming with CSS custom properties:** all colors and container widths are defined in `:root`
 
 ## Setting up the contact form
