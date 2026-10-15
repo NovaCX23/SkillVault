@@ -415,14 +415,66 @@ header {
     margin-bottom: 5rem;
 }
 
+/* Slider: one testimonial per view, moved with the arrows (script.js) or by swiping */
+.testimonials__slider {
+    position: relative;
+}
+
 .testimonials__list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem; 
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.testimonials__list::-webkit-scrollbar {
+    display: none;
 }
 
 .testimonial {
-    padding-top: 2rem;
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    padding: 2rem 5rem 0;
+}
+
+.testimonials__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 1.8rem;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.testimonials__arrow:hover {
+    background: var(--color-bg2);
+}
+
+.testimonials__arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.testimonials__arrow:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.testimonials__arrow--prev {
+    left: 0;
+}
+
+.testimonials__arrow--next {
+    right: 0;
 }
 
 
@@ -737,6 +789,14 @@ footer ul li a:hover{
     }
 
     /*============ TESTIMONIALS =============*/
+    .testimonial{
+        padding: 2rem 3rem 0;
+    }
+    .testimonials__arrow{
+        width: 2.4rem;
+        height: 2.4rem;
+        font-size: 1.4rem;
+    }
     .testimonial__body{
         padding: 1.2rem;
     }

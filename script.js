@@ -44,7 +44,6 @@ if (addTestimonialBtn) {
     const roleInput = document.querySelector('#testimonial-role');
     const messageInput = document.querySelector('#testimonial-message');
     const testimonialsContainer = document.querySelector('.testimonials__list');
-    const testimonialForm = document.querySelector('.testimonial__form');
 
     // Avatars picked at random for newly added testimonials
     const avatarImages = [
@@ -112,13 +111,35 @@ if (addTestimonialBtn) {
             testimonial.remove();
             savedTestimonials = savedTestimonials.filter(saved => saved.id !== id);
             saveTestimonials();
+            updateArrows();
         });
 
-        // Keep the form as the last item in the list
-        testimonialsContainer.insertBefore(testimonial, testimonialForm);
+        testimonialsContainer.appendChild(testimonial);
     }
 
     savedTestimonials.forEach(addTestimonial);
+
+    // Slider arrows: move one testimonial at a time, disabled at either end
+    const prevBtn = document.querySelector('.testimonials__arrow--prev');
+    const nextBtn = document.querySelector('.testimonials__arrow--next');
+
+    const updateArrows = () => {
+        const maxScroll = testimonialsContainer.scrollWidth - testimonialsContainer.clientWidth;
+        prevBtn.disabled = testimonialsContainer.scrollLeft <= 1;
+        nextBtn.disabled = testimonialsContainer.scrollLeft >= maxScroll - 1;
+    };
+
+    prevBtn.addEventListener('click', () => {
+        testimonialsContainer.scrollBy({ left: -testimonialsContainer.clientWidth });
+    });
+
+    nextBtn.addEventListener('click', () => {
+        testimonialsContainer.scrollBy({ left: testimonialsContainer.clientWidth });
+    });
+
+    testimonialsContainer.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
 
     addTestimonialBtn.addEventListener('click', () => {
         const name = nameInput.value.trim();
@@ -150,6 +171,10 @@ if (addTestimonialBtn) {
         savedTestimonials.push(testimonial);
         saveTestimonials();
         addTestimonial(testimonial);
+        updateArrows();
+
+        // Slide to the new testimonial so the visitor sees it was added
+        testimonialsContainer.scrollTo({ left: testimonialsContainer.scrollWidth });
 
         nameInput.value = '';
         roleInput.value = '';
