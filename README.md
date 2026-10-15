@@ -1,72 +1,100 @@
 # SkillVault
 
-A responsive, multi-page website for a fictional online learning platform. Built with plain **HTML, CSS and JavaScript** — no frameworks, and no build step needed to run it (a tiny optional Node script keeps the shared navbar and footer in sync) — as a first-year university project.
+A responsive, multi-page website for a fictional online learning platform, built as a first-year university project with plain **HTML, CSS and JavaScript**. No frameworks and no installation: open `index.html` and it runs.
+
+![SkillVault home page on desktop](docs/screenshots/home-desktop.webp)
+
+## Highlights
+
+- **Fully responsive:** desktop, tablet (≤ 1023px) and mobile (≤ 600px) layouts built with CSS Grid and Flexbox
+- **Interactive without a framework:** testimonials slider, FAQ accordion, mobile menu and a contact form that sends without reloading, all in vanilla JavaScript
+- **Fast:** every photo is a resized WebP and images below the fold are lazy-loaded. The image folder went from about 70 MB to 1.3 MB, and the About page from a 42 MB download to under 0.5 MB
+- **Accessible:** keyboard-friendly FAQ buttons with `aria-expanded`, descriptive alt text, labelled icon links, and visible focus outlines on the FAQ and slider buttons
+- **Easy to host:** plain static files that work on GitHub Pages, Netlify or any web server
+
+## Screenshots
+
+| Testimonials slider | Team section |
+| --- | --- |
+| ![Testimonials slider with previous and next arrows](docs/screenshots/testimonials-desktop.webp) | ![About page team section](docs/screenshots/about-desktop.webp) |
+
+| Mobile home | Mobile menu |
+| --- | --- |
+| <img src="docs/screenshots/home-mobile.webp" alt="Home page on a phone" width="300"> | <img src="docs/screenshots/menu-mobile.webp" alt="Open mobile menu on a phone, with the current page highlighted" width="300"> |
 
 ## Pages
 
 | Page | What's on it |
 | --- | --- |
-| **Home** (`index.html`) | Hero section, course categories, popular courses, an interactive FAQ and a student testimonials section where visitors can add their own testimonial |
+| **Home** (`index.html`) | Hero section, course categories, popular courses, an FAQ accordion, and a testimonials slider where visitors can add their own testimonial |
 | **About** (`about.html`) | Achievements (courses, students, awards) and a team section with hover effects |
 | **Courses** (`courses.html`) | Grid of 15 courses, from UI/UX Design to Public Speaking |
 | **Contact** (`contact.html`) | Contact details, social links and a contact form sent through [Formspree](https://formspree.io/) |
-| **Login** (`login.html`) | Login / register / logout **demo** backed by `localStorage` (front-end only, see below) |
+| **Login** (`login.html`) | Login / register / logout **demo** that runs in the browser (see [About the login demo](#about-the-login-demo)) |
 
 ## Features
 
-- **Responsive layout:** desktop, tablet (≤ 1023px) and mobile (≤ 600px) breakpoints, built with CSS Grid and Flexbox
-- **Mobile navigation:** hamburger menu that opens and closes the nav on small screens
-- **Navbar on scroll:** the transparent navbar gets a solid background once you scroll
-- **FAQ accordion:** click a question to expand it; the icon toggles between plus and minus
+**Navigation**
+- Navbar that turns solid once you scroll, and highlights the page you're on
+- Hamburger menu on small screens that closes when you pick a link and resets correctly if the window is resized
+- When you're logged in, the navbar shows your username instead of "Login" (click it to log out)
+
+**Home page**
 - **Testimonials slider:** one testimonial at a time, with previous/next arrows (or swipe on touch screens)
-- **Add a testimonial:** form with regex validation (name, role, message length); new testimonials get a random avatar, are saved in `localStorage` so they survive a refresh, and can be deleted
-- **Contact form:** submitted to Formspree with `fetch`, showing a success or error message without reloading the page
-- **Login demo:** register and log in with credentials stored in the browser's `localStorage`. Linked from the navbar on every page; once logged in, the navbar shows your username instead of "Login" (click it to log out)
-- **Theming with CSS custom properties:** all colors and container widths are defined in `:root`
+- **Add a testimonial:** a form with validation (name, role, message length). Names can use any alphabet ("Ștefan", "José"). New testimonials get a random avatar, are saved in `localStorage` so they survive a refresh, and can be deleted
+- **FAQ accordion:** click (or press Enter/Space on) a question to expand it
 
-## Setting up the contact form
+**Contact page**
+- The form is sent to Formspree with `fetch` and shows a success or error message without reloading the page
 
-The contact form posts to [Formspree](https://formspree.io/), so it works on any static host with no backend. Out of the box it points at a placeholder and will show an error message when submitted. To receive real messages:
+**Under the hood**
+- All colors and container widths are CSS custom properties in `:root`
+- Each page has its own meta description for search engines
+- The shared navbar and footer live in one place (`partials/`) and are copied into every page by a tiny build script
 
-1. Create a free account at [formspree.io](https://formspree.io/) and add a new form.
-2. Copy the form's ID (the part after `/f/` in its endpoint, e.g. `https://formspree.io/f/abcdwxyz`).
-3. In `contact.html`, replace `YOUR_FORM_ID` in the form's `action` attribute:
-
-   ```html
-   <form class="contact__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-   ```
-
-That's the only place the ID lives; `script.js` reads the URL from the form's `action`.
-
-## About the login demo
-
-The login page is a **front-end demo only**, and the page itself says so. There is no backend: the username and password are saved **unencrypted** in the browser's `localStorage`, so anyone with access to the browser can read them. It shows the UI flow, not real authentication. Don't enter a real password. A real version would need a backend or an auth provider (e.g. Firebase Auth, Auth0, Supabase) that hashes passwords on the server.
-
-## Tech stack
-
-- HTML5
-- CSS3 (custom properties, Grid, Flexbox, media queries)
-- Vanilla JavaScript (DOM manipulation, events, `localStorage`)
-- [Unicons](https://iconscout.com/unicons) for icons
-- [Inter](https://rsms.me/inter/) font
-
-## Running locally
+## Getting started
 
 No installation is needed. Clone the repo and open `index.html` in a browser:
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/NovaCX23/SkillVault.git
 cd SkillVault
 ```
 
-Or, to serve it over HTTP (e.g. with the VS Code *Live Server* extension, or Python):
+To serve it over HTTP instead (recommended, so everything behaves as it would online), use the VS Code *Live Server* extension or Python:
 
 ```bash
 python -m http.server 8000
 # then open http://localhost:8000
 ```
 
-Because the entry point is `index.html`, the site can also be deployed as-is to GitHub Pages, Netlify or any static host.
+## Deploying
+
+The site is plain static files with `index.html` as the entry point, so it can be deployed as-is. On **GitHub Pages**:
+
+1. On GitHub, open the repo's **Settings → Pages**.
+2. Under **Build and deployment**, choose **Deploy from a branch**, then pick the `main` branch and the `/ (root)` folder.
+3. Save. After a minute the site is live at `https://novacx23.github.io/SkillVault/`.
+
+Netlify, Vercel or any other static host works the same way: point it at the repo root, with no build command.
+
+## Contact form
+
+The contact form posts to [Formspree](https://formspree.io/), so it works on any static host without a backend. Messages arrive in the Formspree account the form belongs to.
+
+To send messages to a different Formspree form, change the ID at the end of the form's `action` in `contact.html`:
+
+```html
+<form class="contact__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+```
+
+That's the only place the ID lives; `script.js` reads the URL from the form's `action`.
+
+## About the login demo
+
+The login page is a **front-end demo only**, and the page itself says so. There is no backend: the username and password are saved **unencrypted** in the browser's `localStorage`, so anyone with access to the browser can read them. It shows the UI flow, not real authentication. Don't enter a real password.
+
+A real version would need a backend or an auth provider (e.g. Firebase Auth, Auth0, Supabase) that hashes passwords on the server.
 
 ## Editing the navbar and footer
 
@@ -84,7 +112,7 @@ After editing a partial, copy it into every page with:
 node build.js
 ```
 
-The script has no dependencies (any recent Node.js works) and only rewrites the code between the markers. The pages stay plain HTML, so nothing else changes: you can still open them directly and deploy them as-is. Commit the updated pages along with the partial.
+The script has no dependencies (any recent Node.js works) and only rewrites the code between the markers. The pages stay plain HTML, so you can still open them directly and deploy them as-is. Commit the updated pages along with the partial.
 
 ## Project structure
 
@@ -106,27 +134,30 @@ SkillVault/
 │   ├── style.css     # Global styles + home and courses pages
 │   ├── about.css
 │   └── contact.css
-└── images/
+├── images/           # WebP photos, SVG illustration and favicon
+├── docs/screenshots/ # Screenshots used in this README
+└── BUGS.md           # Bugs found and fixed, plus suggestions
 ```
 
-## TODO
+## Tech stack
 
-Areas for improvement:
+- HTML5
+- CSS3 (custom properties, Grid, Flexbox, scroll snap, media queries)
+- Vanilla JavaScript (DOM manipulation, events, `fetch`, `localStorage`)
+- [Formspree](https://formspree.io/) for the contact form
+- [Unicons](https://iconscout.com/unicons) for icons
+- [Inter](https://rsms.me/inter/) font
+- Node.js (optional, only for `build.js`)
 
-- [x] **Compress the images.** `images/` is about 70 MB; some team and avatar photos are 5–18 MB each (`tm5.jpg`, `tm4.jpg`, `tm1.jpg`, `avatar9.jpg`...). Resize them to around 400–800px wide and convert to WebP. This would massively speed up page loads.
-- [x] **Add `loading="lazy"`** to images below the fold (courses, team, testimonials).
-- [x] **Link the login page from the site.** `login.html` isn't reachable from the navbar right now, and it uses its own separate styles.
-- [x] **Don't store plain-text passwords in `localStorage`.** The login is a front-end demo only. Either label it as a demo, or replace it with a real backend or auth provider.
-- [x] **Make the contact form actually send.** Right now it only reloads the page. Use a service like Formspree, or add a small backend, and show a success message.
-- [x] **Persist testimonials.** Added testimonials disappear on refresh; save them to `localStorage` (or a backend).
-- [x] **Fix "Learn More" links.** Every course links back to `courses.html`, and the Categories button and footer links point to `#`. Add course detail pages, or remove the buttons.
-- [x] **Fix the mobile menu state on resize.** If you close the mobile menu and then widen the window, the desktop nav stays hidden because of the inline `display: none`. Toggle a CSS class instead of setting inline styles.
-- [x] **Close the mobile menu when a link is clicked**, and highlight the active page in the navbar.
-- [x] **Avoid duplicated markup.** The navbar and footer are copy-pasted in every page. Consider a static site generator or a small templating step.
-- [x] **Tidy up the CSS.** `.testimonials__container` in `style.css` never matches the HTML class `testimonials__Container`. Also, `login.css` duplicates the `:root` variables from `style.css`.
-- [x] **Improve accessibility.** Use `<button>` elements for the FAQ questions (keyboard and screen-reader support), add `aria-expanded`, use descriptive `alt` text (e.g. `"Ethan Walker"` instead of `"tm1"`), and add `aria-label`s to the icon-only social links.
-- [x] **Allow non-ASCII names in testimonials.** The name regex rejects names like "Ștefan" or "José"; use `/^[\p{L}\s'-]{3,50}$/u`.
-- [x] **Write a unique meta description for each page.** They all share the same one right now, which is bad for SEO.
+## Ideas for the future
+
+- Restore visible keyboard focus outlines across the whole site (they're currently removed by the CSS reset)
+- Add visible `<label>`s to the form fields
+- Expose the mobile menu's open/closed state to screen readers (`aria-expanded`)
+- Replace the login demo with real authentication
+- Add real policy pages and social media accounts to the footer
+
+More details are in [BUGS.md](BUGS.md).
 
 ## Credits
 
